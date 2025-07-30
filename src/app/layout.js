@@ -1,7 +1,18 @@
 import { Inter } from "next/font/google";
+
+// import localFont from 'next/font/local'
 import "./globals.css";
+import Navbar from "@/components/custom/navbar/Navbar";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import Cursor from "@/components/custom/Cursor";
+import StoreProvider from "@/components/providers/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
+
+// const soraFont = localFont({
+//   src: '/fonts/Sora-Regular.ttf',
+//   display: 'swap',
+// })
 
 export const metadata = {
   title: "Create Next App",
@@ -9,9 +20,25 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sora">
+        
+      {/* <body className={inter.className}> */}
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <StoreProvider>
+            <Cursor />
+            <Navbar />
+            {children}
+            </StoreProvider>
+          </ThemeProvider>
+      </body>
     </html>
   );
 }
