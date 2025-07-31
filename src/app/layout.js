@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           >
             <StoreProvider>
             {/* <Cursor /> */}
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
             </StoreProvider>
           </ThemeProvider>

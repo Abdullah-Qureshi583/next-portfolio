@@ -12,16 +12,16 @@ const Navbar = () => {
   const navContainerRef = useRef(null);
 
   // Resize font on scroll
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (navContainerRef.current) {
-  //       navContainerRef.current.style.fontSize =
-  //         window.scrollY > 700 ? "1.1rem" : "1.25rem";
-  //     }
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navContainerRef.current) {
+        navContainerRef.current.style.fontSize =
+          window.scrollY > 700 ? "1.1rem" : "1.25rem";
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="flex justify-between fixed z-[999] top-0 w-full items-start">
@@ -45,43 +45,39 @@ export default Navbar;
 // ----------------- NavLinks Component -----------------
 const NavLinks = () => {
   const words = ["Work", "Agency", "Studio", "Services"];
-  const charRefs = useRef([]);
-  const timelinesRef = useRef([]);
-  const [isActive, setIsActive] = useState(Array(words.length).fill(false));
+  const frontRefs = useRef([]);
+  const backRefs = useRef([]);
+  const [activeLinkIndex, setActiveLinkIndex] = useState(-1);
+  const dotRef = useRef([]);
+
+  
 
   // Initial load animation
-  // useGSAP(() => {
-  //   const allSpans = charRefs.current.flat();
-  //   gsap.from(allSpans, {
-  //     y: -60,
-  //     opacity: 0,
-  //     duration: 0.5,
-  //     stagger: 0.05,
-  //     ease: "power3.out",
-  //   });
-  // }, []);
-
-  const addToRefs = (el, wordIdx) => {
-    if (el) {
-      if (!charRefs.current[wordIdx]) charRefs.current[wordIdx] = [];
-      if (!charRefs.current[wordIdx].includes(el)) {
-        charRefs.current[wordIdx].push(el);
-      }
-    }
-  };
+  useGSAP(() => {
+    backRefs.current.forEach((innerRefs) => {
+      innerRefs.forEach((ref) => {
+        if (ref) {
+          gsap.set(ref, {
+            yPercent: 100,
+            opacity: 0,
+          });
+        }
+      });
+    });
+  }, [backRefs]);
 
   return (
     <>
       {words.map((word, idx) => (
         <NavLinkItem
+          frontRefs={frontRefs}
+          setActiveLinkIndex={setActiveLinkIndex}
+          backRefs={backRefs}
+          activeLinkIndex={activeLinkIndex}
+          dotRef={dotRef}
           key={idx}
           word={word}
           wordIdx={idx}
-          isActive={isActive}
-          setIsActive={setIsActive}
-          charRefs={charRefs}
-          timelinesRef={timelinesRef}
-          addToRefs={addToRefs}
         />
       ))}
     </>
@@ -91,173 +87,80 @@ const NavLinks = () => {
 // ----------------- NavLinkItem Component -----------------
 
 const NavLinkItem = ({
+  setActiveLinkIndex,
+  frontRefs,
+  backRefs,
+  activeLinkIndex,
+  dotRef,
   word,
   wordIdx,
-  isActive,
-  setIsActive,
-  charRefs,
-  timelinesRef,
-  addToRefs,
 }) => {
-  const frontRefs = useRef([]);
-  const backRefs = useRef([]);
 
-  useEffect(() => {
-    gsap.set(backRefs.current[wordIdx], { yPercent: 100, autoAlpha: 0 });
-  }, []);
+  const animateIn = (wordIdx) => {
+    if (activeLinkIndex >= 0) return;
+    setActiveLinkIndex(wordIdx);
 
-  // const animateIn = () => {
-  //   const spans = charRefs.current[wordIdx];
-  //   if (!spans || isActive[wordIdx]) return;
+    const frontChars = frontRefs.current[wordIdx];
+    const backChars = backRefs.current[wordIdx];
+    console.log("char in movein", frontRefs.current, backRefs.current);
+    if (!frontChars || !backChars) return;
 
-  //   console.log("IN the prev animate in : ", spans)
-  //   if (timelinesRef.current[wordIdx]) {
-  //     timelinesRef.current[wordIdx].kill();
-  //     gsap.set(spans, { clearProps: "all" });
-  //   }
-
-  //   const tl = gsap.timeline();
-  //   tl.fromTo(
-  //     spans,
-  //     { y: 40, opacity: 0 },
-  //     {
-  //       y: 0,
-  //       opacity: 1,
-  //       duration: 0.4,
-  //       stagger: 0.03,
-  //       ease: "power3.out",
-  //     }
-  //   );
-
-  //   timelinesRef.current[wordIdx] = tl;
-
-  //   setIsActive((prev) => {
-  //     const copy = [...prev];
-  //     copy[wordIdx] = true;
-  //     return copy;
-  //   });
-  // };
-
-  // const animateOut = () => {
-  //   const spans = charRefs.current[wordIdx];
-  //   if (!spans || !isActive[wordIdx]) return;
-
-  //   if (timelinesRef.current[wordIdx]) {
-  //     timelinesRef.current[wordIdx].kill();
-  //     gsap.set(spans, { clearProps: "all" });
-  //   }
-
-  //   const tl = gsap.timeline();
-  //   tl.from(spans, {
-  //     y: 40,
-  //     opacity: 0,
-  //     duration: 0.3,
-  //     stagger: 0.03,
-  //     ease: "power3.inOut",
-  //   });
-
-  //   timelinesRef.current[wordIdx] = tl;
-
-  //   setIsActive((prev) => {
-  //     const copy = [...prev];
-  //     copy[wordIdx] = false;
-  //     return copy;
-  //   });
-  // };
-
-  // return (
-  //   <div
-  //     className="overflow-hidden cursor-pointer flex items-center"
-  //     onMouseEnter={animateIn}
-  //     onMouseLeave={animateOut}
-  //   >
-  //     <span className="font-bold rounded-full overflow-hidden mr-2 min-w-2.5 min-h-2.5 bg-white"></span>
-  //     {word.split("").map((char, idx) => (
-  //       <span
-  //         key={idx}
-  //         ref={(el) => addToRefs(el, wordIdx)}
-  //         className="inline-block"
-  //       >
-  //         {char}
-  //       </span>
-  //     ))}
-  //   </div>
-  // );
-  // ======================================================
-
-  const animateIn = () => {
-    const front = frontRefs.current[wordIdx];
-    const back = backRefs.current[wordIdx];
-    if (!front || !back) return;
-
-    const frontChars = Array.from(front.children);
-    const backChars = Array.from(back.children);
-
-    console.log("frontChars in ", frontChars);
-    console.log("backChars in", backChars);
-    gsap
-      .timeline()
-      .to(
-        frontChars,
-        {
-          yPercent: -100,
-          autoAlpha: 0,
-          duration: 0.3,
-          ease: "power2.out",
-
-          stagger: 0.1,
-        },
-        0
-      )
-      .to(
-        backChars,
-        {
-          yPercent: 0,
-          autoAlpha: 1,
-          duration: 0.3,
-          ease: "power2.out",
-
-          stagger: 0.1,
-        },
-        0
+    if (dotRef.current[wordIdx]) {
+      gsap.fromTo(
+        dotRef.current[wordIdx],
+        { scale: 0 },
+        { scale: 1, duration: 0.3, ease: "power2.in" }
       );
+    }
+
+    gsap.to(frontChars, {
+      yPercent: -100,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      stagger: 0.05, // Per character!
+    });
+
+    gsap.to(backChars, {
+      yPercent: 0,
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.in",
+      stagger: 0.05,
+    });
   };
 
-  const animateOut = () => {
-    const front = frontRefs.current[wordIdx];
-    const back = backRefs.current[wordIdx];
-    if (!front || !back) return;
+  const animateOut = (wordIdx) => {
+    setActiveLinkIndex(-1);
 
+    const frontChars = frontRefs.current[wordIdx];
+    const backChars = backRefs.current[wordIdx];
 
-    const frontChars = Array.from(front.children);
-    const backChars = Array.from(back.children);
+    if (!frontChars || !backChars) return;
 
-    console.log("frontChars Out ", frontChars);
-    console.log("backChars Out", backChars);
-    gsap
-      .timeline()
-      .to(
-        backChars,
-        {
-          yPercent: 100,
-          autoAlpha: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          stagger: 0.1,
-        },
-        0
-      )
-      .to(
-        frontChars,
-        {
-          yPercent: 0,
-          autoAlpha: 1,
-          duration: 0.3,
-          ease: "power2.in",
-          stagger: 0.1,
-        },
-        0
-      );
+    if (dotRef.current[wordIdx]) {
+      gsap.to(dotRef.current[wordIdx], {
+        scale: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+    }
+
+    gsap.to(frontChars, {
+      yPercent: 0,
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.in",
+      stagger: 0.05,
+    });
+
+    gsap.to(backChars, {
+      yPercent: 100,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      stagger: 0.05,
+    });
   };
 
   return (
@@ -266,38 +169,49 @@ const NavLinkItem = ({
       onMouseEnter={animateIn}
       onMouseLeave={animateOut}
     >
-      {/* <p>hey thre is somehting</p> */}
+      <div
+        ref={(el) => (dotRef.current[wordIdx] = el)}
+        className={`min-h-3 min-w-3 bg-white rounded-full absolute -left-6 ${
+          activeLinkIndex === wordIdx ? "block" : "hidden"
+        }`}
+      ></div>
 
       {/* Front layer */}
-      <span
-        className=" absolute top-0 left-0 w-full h-full flex justify-center items-center "
-        // className=" w-full h-full flex items-center"
-        ref={(el) => (frontRefs.current[wordIdx] = el)}
-      >
-        {word.split("").map((char, idx) => (
+      <div className="w-full h-full flex items-center justify-center">
+        {word.split("").map((char, charIdx) => (
           <span
-            key={idx}
-            ref={(el) => addToRefs(el, wordIdx)}
             className="inline-block"
+            key={charIdx}
+            ref={(el) => {
+              if (el) {
+                if (!frontRefs.current[wordIdx])
+                  frontRefs.current[wordIdx] = [];
+                frontRefs.current[wordIdx][charIdx] = el;
+              }
+            }}
           >
             {char}
           </span>
         ))}
-      </span>
+      </div>
 
       {/* Back layer */}
-
-      <span
-        className="relative w-full h-full flex items-center"
-        ref={(el) => (backRefs.current[wordIdx] = el)}
-      >
-        {/* <span className="font-bold rounded-full  mr-3 min-w-2.5  min-h-2.5 bg-white " /> */}
-        {word.split("").map((char, idx) => (
-          <span key={idx} className="inline-block">
+      <div className="w-full absolute h-full flex items-center justify-center">
+        {word.split("").map((char, charIdx) => (
+          <span
+            className="inline-block"
+            key={charIdx}
+            ref={(el) => {
+              if (el) {
+                if (!backRefs.current[wordIdx]) backRefs.current[wordIdx] = [];
+                backRefs.current[wordIdx][charIdx] = el;
+              }
+            }}
+          >
             {char}
           </span>
         ))}
-      </span>
+      </div>
     </div>
   );
 };

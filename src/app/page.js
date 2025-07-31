@@ -19,8 +19,8 @@ const Home = () => {
 
   return (
     <main className="min-h-screen">
-      {/* <Hero /> */}
-      <Practice />
+      <Hero />
+      {/* <Practice /> */}
     </main>
   );
 };
