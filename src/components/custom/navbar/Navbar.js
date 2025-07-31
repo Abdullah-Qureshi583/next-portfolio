@@ -4,12 +4,13 @@ import Logo from "./Logo";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { ModeToggle } from "../ModeToggle";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // ----------------- Main Navbar Component -----------------
 const Navbar = () => {
-  const words = ["Work", "Agency", "Studio", "Services"];
+  const words = ["Work harder ", "Agency", "Studio", "Services"];
   const frontRefs = useRef([]);
   const backRefs = useRef([]);
   const [activeLinkIndex, setActiveLinkIndex] = useState(-1);
@@ -144,14 +145,17 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between fixed z-[999] top-0 w-full items-start">
+    <div className="flex justify-between  fixed z-[999] top-0 w-full items-start">
       <div className="flex justify-center items-center size-32">
         <Logo />
+      </div>
+      <div className="flex absolute justify-center items-center right-24 top-3">
+        <ModeToggle />
       </div>
 
       <div
         ref={navContainerRef}
-        className="flex flex-col items-start tracking-wider mt-10 gap-2 mr-20 text-xl transition-all duration-200"
+        className="flex flex-col items-start tracking-wider mt-12 gap-2 mr-20 text-xl transition-all duration-200"
         style={{ fontSize: "1.25rem" }}
       >
         {words.map((word, idx) => (
@@ -163,7 +167,7 @@ const Navbar = () => {
           >
             <div
               ref={(el) => (dotRef.current[idx] = el)}
-              className={`min-h-2.5 min-w-2.5 bg-black rounded-full absolute left-0 top-[50%] ${
+              className={`min-h-2.5 min-w-2.5 bg-primary rounded-full absolute left-0 top-[50%] ${
                 activeLinkIndex === idx ? "block" : "hidden"
               }`}
               style={{
@@ -208,7 +212,7 @@ const Navbar = () => {
             </div>
             <div
               ref={(el) => (underlineRef.current[idx] = el)}
-              className={` bg-black underline rounded-full absolute left-5 bottom-0 h-[2px] w-full
+              className={` bg-primary underline rounded-full absolute left-5 bottom-0 h-[2px] w-full
                  ${activeLinkIndex === idx ? "block" : "hidden"}
                 `}
             ></div>
