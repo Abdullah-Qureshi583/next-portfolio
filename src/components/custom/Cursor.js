@@ -30,7 +30,7 @@ const Cursor = () => {
         x: e.clientX,
         y: e.clientY,
         duration: 0.6,
-        delay:0.05,
+        delay:0.02,
         opacity: 1,
         ease: "back.out",
       });

@@ -33,8 +33,8 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
             <StoreProvider>
-            <Cursor />
-            <Navbar />
+            {/* <Cursor /> */}
+            {/* <Navbar /> */}
             {children}
             </StoreProvider>
           </ThemeProvider>

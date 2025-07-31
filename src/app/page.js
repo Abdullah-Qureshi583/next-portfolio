@@ -2,6 +2,8 @@
 import Hero from "@/components/custom/Hero";
 import React, { useEffect } from "react";
 import Lenis from "lenis";
+import Practice from "@/components/custom/Prac";
+
 const Home = () => {
   useEffect(() => {
     const lenis = new Lenis();
@@ -17,7 +19,8 @@ const Home = () => {
 
   return (
     <main className="min-h-screen">
-      <Hero />
+      {/* <Hero /> */}
+      <Practice />
     </main>
   );
 };
