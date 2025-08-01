@@ -145,7 +145,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between  fixed z-[999] top-0 w-full items-start">
+    <div className="flex justify-between   z-[999] fixed container  top-0 w-full items-start">
       <div className="flex justify-center items-center size-32">
         <Logo />
       </div>

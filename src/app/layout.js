@@ -3,9 +3,12 @@ import { Inter } from "next/font/google";
 // import localFont from 'next/font/local'
 import "./globals.css";
 import Navbar from "@/components/custom/navbar/Navbar";
+
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import Cursor from "@/components/custom/Cursor";
 import StoreProvider from "@/components/providers/StoreProvider";
+import Sidebar from "@/components/custom/navbar/Sidebar";
+import Prac from "@/components/custom/Prac";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,24 +23,26 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sora">
-        
-      {/* <body className={inter.className}> */}
+      <body className="font-sora container  mx-auto px-6  relative ">
+        {/* <body className={inter.className}> */}
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <StoreProvider>
-            {/* <Cursor /> */}
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StoreProvider>
+            <Cursor />
+
             <Navbar />
+
             {children}
-            </StoreProvider>
-          </ThemeProvider>
+            {/* <Sidebar /> */}
+            {/* <Prac /> */}
+          </StoreProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'soraFont';
-  src: url('/fonts/Sora-Regular.ttf') format('woff2');
+  font-family: "soraFont";
+  src: url("/fonts/Sora-Regular.ttf") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -29,8 +29,6 @@
     text-wrap: balance;
   }
 }
-
-
 
 @layer base {
   :root {
@@ -88,13 +86,25 @@
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+}
+@layer components {
+  .h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-primary flex justify-center items-center leading-none;
+  }
+  .h3 {
+    @apply text-xl md:text-2xl lg:text-3xl font-medium text-gray-300 leading-relaxed;
+  }
+  .paragraph {
+    @apply text-base md:text-lg text-gray-400 leading-relaxed;
   }
 }
