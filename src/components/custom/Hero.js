@@ -246,7 +246,7 @@ const Hero = () => {
           <ArrowRight className="ml-1 h-5 w-5 group-hover:translate-x-1 transition-transform" />
         </Button>
 
-        <div
+        {/* <div
           // ref={buttonsRef}
           className="flex flex-col sm:flex-row gap-6 justify-start self-start ml-8 mt-16"
         >
@@ -280,9 +280,9 @@ const Hero = () => {
             <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
             Developer Mode
           </Button>
-        </div>
+        </div> */}
 
-        {/* Social Links */}
+        {/* Social Links
         <div ref={socialRef} className="flex w-full justify-center  gap-6 mt-4">
           {[
             {
@@ -315,7 +315,7 @@ const Hero = () => {
               <Icon className="h-6 w-6 text-gray-300 group-hover:text-white transition-colors" />
             </a>
           ))}
-        </div>
+        </div> */}
 
         {/* Scroll Indicator */}
         <div

@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <main className="min-h-screen">
-      {/* <Hero /> */}
+      <Hero />
       <About />
       {/* <Practice /> */}
     </main>
