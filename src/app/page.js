@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import Lenis from "lenis";
 import Practice from "@/components/custom/Prac";
 import About from "@/components/custom/About";
+import Projects from "@/components/custom/Projects";
 
 const Home = () => {
   useEffect(() => {
@@ -20,8 +21,9 @@ const Home = () => {
 
   return (
     <main className="min-h-screen">
-      <Hero />
-      <About />
+      {/* <Hero /> */}
+      {/* <About /> */}
+      <Projects />
       {/* <Practice /> */}
     </main>
   );

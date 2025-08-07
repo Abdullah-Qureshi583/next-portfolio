@@ -112,17 +112,17 @@ const Hero = () => {
       // );
 
       // Social links animation
-      tl.from(
-        socialRef.current.children,
-        {
-          scale: 0,
-          opacity: 0,
-          duration: 0.5,
-          ease: "back.out(1.7)",
-          stagger: 0.1,
-        },
-        "-=0.2"
-      );
+      // tl.from(
+      //   socialRef.current.children,
+      //   {
+      //     scale: 0,
+      //     opacity: 0,
+      //     duration: 0.5,
+      //     ease: "back.out(1.7)",
+      //     stagger: 0.1,
+      //   },
+      //   "-=0.2"
+      // );
 
       // Scroll indicator animation
       tl.from(
