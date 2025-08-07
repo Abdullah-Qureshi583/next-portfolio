@@ -4,7 +4,8 @@ import Logo from "./Logo";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ModeToggle } from "../ModeToggle";
+
+import ThemeToggleButton from "@/components/ui/theme-toggle-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -150,7 +151,7 @@ const Navbar = () => {
         <Logo />
       </div>
       <div className="flex absolute justify-center items-center right-24 top-3">
-        <ModeToggle />
+        <ThemeToggleButton variant="circle" start="top-right" />
       </div>
 
       <div
