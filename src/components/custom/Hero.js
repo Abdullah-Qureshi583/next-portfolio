@@ -1,3 +1,6 @@
+// Web Solutions by abdullahdotdevs
+// “Crafting fast, modern, and scalable web experiences for growing businesses.
+
 "use client";
 import { useGSAP } from "@gsap/react";
 import React, { useRef } from "react";

@@ -3,6 +3,7 @@ import Hero from "@/components/custom/Hero";
 import React, { useEffect } from "react";
 import Lenis from "lenis";
 import Practice from "@/components/custom/Prac";
+import About from "@/components/custom/About";
 
 const Home = () => {
   useEffect(() => {
@@ -19,7 +20,8 @@ const Home = () => {
 
   return (
     <main className="min-h-screen">
-      <Hero />
+      {/* <Hero /> */}
+      <About />
       {/* <Practice /> */}
     </main>
   );
