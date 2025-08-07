@@ -4,7 +4,6 @@ import Logo from "./Logo";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
-
 import ThemeToggleButton from "@/components/ui/theme-toggle-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);

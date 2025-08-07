@@ -4,11 +4,10 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useAppSelector } from "@/lib/hooks";
 
-
 const Cursor = () => {
-    const cursorRef = useRef(null);    
-    const cursorText = useAppSelector(state => state.cursor.value)
-    // const [cursorText, setCursorText] = useState("");
+  const cursorRef = useRef(null);
+  const cursorText = useAppSelector((state) => state.cursor.value);
+  // const [cursorText, setCursorText] = useState("");
 
   useGSAP(
     () => {
@@ -23,16 +22,14 @@ const Cursor = () => {
 
   useEffect(() => {
     const moveHandler = (e) => {
-      //   const cursorWidth = cursorRef.current.offsetWidth;
-      //   const cursorHeight = cursorRef.current.offsetHeight;
-
       gsap.to(cursorRef.current, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.6,
-        delay:0.02,
+        duration: 0.2,
         opacity: 1,
         ease: "back.out",
+
+        delay: 0.02,
       });
     };
 
